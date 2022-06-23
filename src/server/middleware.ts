@@ -12,14 +12,3 @@ export async function timing(ctx: Context, next: () => Promise<unknown>) {
   const ms = Date.now() - start;
   ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 }
-
-export async function index(ctx: Context, next: () => Promise<unknown>) {
-  try {
-    await ctx.send({
-      root: `${Deno.cwd()}/src/client`,
-      index: "index.html",
-    });
-  } catch {
-    next();
-  }
-}
