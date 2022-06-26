@@ -1,4 +1,4 @@
-import { setup, tw } from "../../deps.ts";
+import { setup } from "../../deps.ts";
 import { getStyleTag, virtualSheet } from "../../deps.ts";
 
 const data: Market[] = [
@@ -43,22 +43,22 @@ setup({
 
 function renderBody() {
   return `
-  <body class="${tw`relative h-screen w-screen`}">
-    <h1 class="${tw`text-3xl font-bold text-center`}">NC Farmer's Markets</h1>
-    <div class="${tw`m-10 flex flex-auto flex-row flex-wrap`}">${data.map(x => renderTile(x)).join("")}</div>
-    <footer class="${tw`fixed bg-gray-200 h-10 inset-x-0 bottom-0 p-2`}">
-      <p class="${tw`absolute center`}">By <a class="${tw`underline text-blue-600 visited:text-violet-700`}"href="https://zach.sexy">zja</a></p>
-      <a class="${tw`absolute right-1 underline text-blue-600 visited:text-violet-700`}"href="https://github.com/zachauten">Source</a>
+  <body style="position:relative; height:100%; width:100%;">
+    <h1 style="text-align:center; font-size: xx-large; font-weight:bold;">NC Farmer's Markets</h1>
+    <div style="display: flex; flex-flow: row wrap; padding: 50px;">${data.map(x => renderTile(x)).join("")}</div>
+    <footer style="position:fixed; background-color: gray; height: 5vh; width: 100vw; bottom: 0px; padding: 2px;">
+      <p style="position:absolute;">By <a href="https://zach.sexy">zja</a></p>
+      <a style="position:absolute;" href="https://github.com/zachauten">Source</a>
     </footer>
   </body>
   `;
 }
 
 function renderTile(market: Market) {
-  return `<div class="${tw`relative shadow-md text-center rounded-md h-40 w-40 m-4`}">
-  <a class="${tw`underline text-blue-600 visited:text-violet-700`}" href="${market.url}">${market.name}</a>
-  <button class="${tw`text-3xl absolute bottom-1 left-1`}" onclick="alert('download ics!')">📅</button>
-  <a class="${tw`text-3xl absolute bottom-1 right-1`}" href="http://maps.apple.com/?address=${market.address}">🗺</a>
+  return `<div style="position:relative; box-shadow: 0px 0px 10px 10px gray; text-align: center; border-radius:10%; height:200px; width:200px; margin:4px">
+  <a href="${market.url}">${market.name}</a>
+  <button style="position:absolute; font-size:xxx-large; bottom: 0px; left: 0px;" onclick="alert('download ics!')">📅</button>
+  <a style="position:absolute; font-size:xxx-large; bottom:0px; right: 0px;" href="http://maps.apple.com/?address=${market.address}">🗺</a>
 </div>`
 }
 
@@ -68,7 +68,7 @@ export function ssr() {
   const styleTag = getStyleTag(sheet);
 
   return `<!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" style="height: 100%; width: 100%;">
       <head>
         <meta name="description" content="A site for North Carolina's Farmer's Markets">
         <meta charset="utf-8"/>
