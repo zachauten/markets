@@ -1,6 +1,3 @@
-import { setup } from "../../deps.ts";
-import { getStyleTag, virtualSheet } from "../../deps.ts";
-
 const data: Market[] = [
   {
     name: "Durham Farmer's Market",
@@ -34,13 +31,6 @@ data.push( {name: "Example Farmer's Market", address: "Durham,NC", url: "http://
 data.push( {name: "Another Example Farmer's Market", address: "Durham,NC", url: "http://example.net"} );
 data.push( {name: "Test Farmer's Market", address: "Durham,NC", url: "http://example.net"} );
 
-
-const sheet = virtualSheet();
-
-setup({
-  sheet,
-});
-
 function renderBody() {
   return `
   <body style="position:relative; height:100%; width:100%;">
@@ -63,9 +53,7 @@ function renderTile(market: Market) {
 }
 
 export function ssr() {
-  sheet.reset();
   const body = renderBody();
-  const styleTag = getStyleTag(sheet);
 
   return `<!DOCTYPE html>
     <html lang="en" style="height: 100%; width: 100%;">
@@ -74,7 +62,6 @@ export function ssr() {
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NC Farmer's Markets</title>
-        ${styleTag}
       </head>
       ${body}
     </html>`;
