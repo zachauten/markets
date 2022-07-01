@@ -33,22 +33,27 @@ data.push( {name: "Test Farmer's Market", address: "Durham,NC", url: "http://exa
 
 function renderBody() {
   return `
-  <body style="position:relative; height:100%; width:100%;">
+  <body style="position:relative; height:100%; width:100%; margin: 0px; padding: 0px;">
     <h1 style="text-align:center; font-size: xx-large; font-weight:bold;">NC Farmer's Markets</h1>
     <div style="display: flex; flex-flow: row wrap; padding: 50px;">${data.map(x => renderTile(x)).join("")}</div>
-    <footer style="position:fixed; background-color: gray; height: 5vh; width: 100vw; bottom: 0px; padding: 2px;">
-      <p style="position:absolute;">By <a href="https://zach.sexy">zja</a></p>
-      <a style="position:absolute;" href="https://github.com/zachauten">Source</a>
-    </footer>
+    ${renderFooter()}
   </body>
   `;
 }
 
+function renderFooter() {
+  return `<footer style="position:fixed; display:flex; flex-flow:row wrap; justify-content:center; align-content:center; background-color:lightgray; height:3em; width:100%; bottom:0%">
+      <span style="margin-right:10px;">By <a href="https://zach.sexy">zja</a></span>
+      <a style="margin-rigth:10px;"href="https://github.com/zachauten">Source</a>
+  </footer>
+  `;
+}
+
 function renderTile(market: Market) {
-  return `<div style="position:relative; box-shadow: 0px 0px 10px 10px gray; text-align: center; border-radius:10%; height:200px; width:200px; margin:4px">
+  return `<div style="position:relative; border-style: outset; box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%); text-align: center; height:150px; width:150px; margin:4px">
   <a href="${market.url}">${market.name}</a>
-  <button style="position:absolute; font-size:xxx-large; bottom: 0px; left: 0px;" onclick="alert('download ics!')">📅</button>
-  <a style="position:absolute; font-size:xxx-large; bottom:0px; right: 0px;" href="http://maps.apple.com/?address=${market.address}">🗺</a>
+  <a style="position:absolute; font-size:xx-large; bottom: 0px; left: 0px; margin: 0px;" onclick="alert('download ics!')">📅</a>
+  <a style="position:absolute; font-size:xx-large; text-decoration: none; bottom:0px; right: 0px; margin: 0px;" href="http://maps.apple.com/?address=${market.address}">🗺</a>
 </div>`
 }
 
@@ -62,6 +67,11 @@ export function ssr() {
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NC Farmer's Markets</title>
+        <style>
+        * {
+          box-sizing: border-box;
+        }
+        </style>
       </head>
       ${body}
     </html>`;
